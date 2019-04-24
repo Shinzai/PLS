@@ -2,7 +2,6 @@ class customer(object):
 
     def __init__(self, id, gender, nationality, firstName, lastName, streetAddress, zipCode, city, emailAddress, username, phoneNumber):
         self.id = id
-        self.firstName = firstName
         self.gender = gender
         self.nationality = nationality
         self.firstName = firstName
