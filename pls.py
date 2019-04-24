@@ -1,7 +1,6 @@
 import json
 import csv
-import customer
-import librarian
+import Person
 
 customers = []
 librarians = []
@@ -12,7 +11,7 @@ with open('librarian.csv', mode='r') as csv_file:
     for row in csv_reader:
         if count == 0:
             count += 1
-        newLibrarian = librarian.librarian(f'{row["name"]}', f'{row["username"]}')
+        newLibrarian = Person.librarian(count, f'{row["Gender"]}', f'{row["NameSet"]}', f'{row["GivenName"]}', f'{row["Surname"]}', f'{row["StreetAddress"]}', f'{row["ZipCode"]}', f'{row["City"]}', f'{row["EmailAddress"]}', f'{row["Username"]}', f'{row["TelephoneNumber"]}')
         librarians.append(newLibrarian)
 
 with open('customers.csv', mode='r', encoding = 'utf-8') as csv_file1:
@@ -21,7 +20,7 @@ with open('customers.csv', mode='r', encoding = 'utf-8') as csv_file1:
     for row in csv_reader1:
         if count == 0:
             count += 1
-        csvCustomer = customer.customer(count, f'{row["Gender"]}', f'{row["NameSet"]}', f'{row["GivenName"]}', f'{row["Surname"]}', f'{row["StreetAddress"]}', f'{row["ZipCode"]}', f'{row["City"]}', f'{row["EmailAddress"]}', f'{row["Username"]}', f'{row["TelephoneNumber"]}')
+        csvCustomer = Person.customer(count, f'{row["Gender"]}', f'{row["NameSet"]}', f'{row["GivenName"]}', f'{row["Surname"]}', f'{row["StreetAddress"]}', f'{row["ZipCode"]}', f'{row["City"]}', f'{row["EmailAddress"]}', f'{row["Username"]}', f'{row["TelephoneNumber"]}')
         customers.append(csvCustomer)
         count += 1
 
