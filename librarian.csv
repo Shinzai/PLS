@@ -1,10 +1,4 @@
-name,username
+Number,Gender,NameSet,GivenName,Surname,StreetAddress,ZipCode,City,EmailAddress,Username,TelephoneNumber,Status
 
-Canberk Ates,jack
-
-Enes Akinci,enes
-
-Kayra Cengiz,kayra
-
-Pranawa Somvedi,pra
+1,Male,Dutch,Pranawa,Somvedi,Loderstraat 101,3052 AM,Rotterdam,test@hr.nl,ieaou,06-14570512,active
 

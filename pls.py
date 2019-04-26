@@ -14,16 +14,6 @@ with open('librarian.csv', mode='r') as csv_file:
         newLibrarian = Person.librarian(count, f'{row["Gender"]}', f'{row["NameSet"]}', f'{row["GivenName"]}', f'{row["Surname"]}', f'{row["StreetAddress"]}', f'{row["ZipCode"]}', f'{row["City"]}', f'{row["EmailAddress"]}', f'{row["Username"]}', f'{row["TelephoneNumber"]}')
         librarians.append(newLibrarian)
 
-with open('customers.csv', mode='r', encoding = 'utf-8') as csv_file1:
-    csv_reader1 = csv.DictReader(csv_file1)
-    count = 0
-    for row in csv_reader1:
-        if count == 0:
-            count += 1
-        csvCustomer = Person.customer(count, f'{row["Gender"]}', f'{row["NameSet"]}', f'{row["GivenName"]}', f'{row["Surname"]}', f'{row["StreetAddress"]}', f'{row["ZipCode"]}', f'{row["City"]}', f'{row["EmailAddress"]}', f'{row["Username"]}', f'{row["TelephoneNumber"]}')
-        customers.append(csvCustomer)
-        count += 1
-
 done = False         
 
 while (done == False):
@@ -51,20 +41,24 @@ while (done == False):
                     phone = input("Phone number?\n")
                     username = input("What do you want to use as user name?\n")
                     
-                    # madeCustomer = librarian.customer.customer(id,gender,nationality,firstName,lastName,streetAddress, zipCode, city, email, username, phone)
-                    # customers.append(madeCustomer)
-                    newCustomer =  customer.customer(id,gender,nationality,firstName,lastName,streetAddress, zipCode, city, email, username, phone)
+                    newCustomer =  Person.customer(id,gender,nationality,firstName,lastName,streetAddress, zipCode, city, email, username, phone)
                     customers.append(newCustomer)
                 
                 elif action == "customer.list":
-                    for x in customers:
-                        print(x.firstName + " " + x.lastName)
+                    if len(customers) >= 1:
+                        for y in customers:
+                            print(y.firstName + " " + y.lastName)
+                    else:
+                        print("No customers loaded!")
+
+                elif action == "load.data":
+                    customers = x.loadData(customers)
+
+                elif action == "backup":
+                    x.backupData(customers)
+                    print("Data back-up made in C:\\temp")
 
                 elif action == "quit":
-                    with open('customers2.csv', mode='w', encoding = 'utf-8') as finalCsv:
-                        finalCsv_writer = csv.writer(finalCsv, delimiter = ',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                        for x in customers:
-                            finalCsv_writer.writerow([x.id, x.gender, x.firstName, x.lastName, x.streetAddress, x.zipCode, x.city, x.emailAddress, x.username, x.phoneNumber])
                     working = False
     
     for x in customers:

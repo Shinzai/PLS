@@ -8,29 +8,37 @@ class Book():
         self.pages = pages
         self.title = title
         self.year = year
-
-    def getTitle(self):
-        return self.title
-
+    
     def getAuthor(self):
         return self.author
-
-    def getLanguage(self):
-        return self.language
-
-    def getPages(self):
-        return self.pages
-
-    def getYear(self):
-        return self.year
-
+    
     def getCountry(self):
         return self.country
     
-    def getLink(self):
-        return self.link
-
-    def getImagelink(self):
+    def getImageLink(self):
         return self.imageLink
     
+    def getLanguage(self):
+        return self.language
     
+    def getLink(self):
+        return self.link
+    
+    def getPages(self):
+        return self.pages
+    
+    def getTitle(self):
+        return self.title
+    
+    def getYear(self):
+        return self.year
+
+    def DisplayBookDetails(self,author,country,imageLink,language,link,pages,title,year):
+        return 'The author is: ' + author + '\nThe book details are: ' + country + ', ' + imageLink + ', ' + language + ', ' + link + ', ' + pages + ', ' + title + ', ' + year + '.'
+
+
+
+        
+    
+
+
