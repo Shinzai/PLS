@@ -305,6 +305,16 @@ while (done == False):
                                     bi.setStatus("unavailable")
                                     loanAdministration.append(newLoan)
                                     break
+                        
+                        elif searchMethod == "Author":
+                            whichAuthor = input("\nPlease type the authors name\n")
+                            for bi in bookItems:
+                                if bi.getBookAuthor() == whichAuthor:
+                                    newLoan = LoanItem.LoanItem(x, bi, today, weekLater, bi.getItemId())
+                                    bi.setStatus("unavailable")
+                                    loanAdministration.append(newLoan)
+                                    break
+
 
                     elif action == "book.find":
                         searchMethod = input("\nHow do you want to search for a book? Choose:\nTitle, Author or Year\n")
@@ -319,13 +329,7 @@ while (done == False):
                             for bi in bookItems:
                                 if bi.getBookAuthor() == whichAuthor:
                                     print("\nTitle: ", bi.getBookTitle(), "\nAuthor: ", bi.getBookAuthor(), "\nAvailability: ", bi.getStatus(), "\n")
-                        
-                        elif searchMethod == "Year":
-                            whatYear = input("\nPlease type the year of the book\n")
-                            for bi in bookItems:
-                                if bi.getBookYear() == whatYear:
-                                    print("\nTitle: ", bi.getBookTitle(), "\nAuthor: ", bi.getBookAuthor(), "\nAvailability: ", bi.getStatus(), "\n")
-
+                          
                     elif action == "book.available":
                         for testbooks in bookItems:
                             if testbooks.getStatus() == "available":
