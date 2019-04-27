@@ -77,7 +77,7 @@ if bookitemFileStatus == True:
 if loanAdministrationFileStatus == True:
     with open('data/loanAdministration.json') as loanAdminFile:
 
-        check = os.stat('G:/#Github/PLS/data/loanAdministration.json').st_size==0
+        check = os.stat('data/loanAdministration.json').st_size==0
 
         if check == False:
 
@@ -108,7 +108,7 @@ while (done == False):
             while (working == True):
                 action = input("What would you like to do? Enter help for more information.\n")
                 if action == "help":
-                    print("Add customer = customer.add\Block customers account = customer.block\nUnblock customers account = customer.unblock")
+                    print("\ncustomer.add = add new customer\ncustomer.block = block customer\ncustomer.unblock = unblock customer\ncustomer.list = show list of customers\nbookitem.add = add new book item\nbookitem.list = list all book items\nbookitem.available = list all available book items\nbook.list = list all books\nbook.find = find a specific book\nloan.administration = shows administration of loans\nbackup.make = make a backup of all files\nbackup.recover = recover data from backup\nlogout = logout from system\n")
                 
                 elif action == "customer.add":
                     id = len(customers) + 1
@@ -143,40 +143,34 @@ while (done == False):
                         for c in customers:
                             print(c.firstName + " " + c.lastName + "\nUsername: " + c.username + "\nStatus: " + c.status + "\n")
 
-                elif action == "add.bookitem":
+                elif action == "bookitem.add":
                     whatBook = input("Choose what book you want to add. Give the specific title.\n")
                     for b in books:
                         if whatBook == b.getTitle():
                             thisBook = input("Do you want to add the book: " + b.getTitle() + "?\nType 'add' to add the book or 'cancel' to cancel this action.\n")
                             if thisBook == "add":
-                                if len(bookItems) > 0:
-                                    for s in bookItems:
-                                        if s.getBookTitle() == b.getTitle():
-                                            newBookItem = BookItem.BookItem(b, str(uuid.uuid4()), "available")
-                                            bookItems.append(newBookItem)  
-                                else:
-                                    newBookItem = BookItem.BookItem(b, str(uuid.uuid4()), "available")
-                                    bookItems.append(newBookItem)
+                                newBookItem = BookItem.BookItem(b, str(uuid.uuid4()), "available")
+                                bookItems.append(newBookItem)
                             elif thisBook == "cancel":
                                 break
 
-                elif action == "list.bookitems":
+                elif action == "bookitem.list":
                     # for bi in bookItems:
                     #     print(bi.getBookInfo)
                     for testbooks in bookItems:
                         print("\nTitle: ", testbooks.getBookTitle() , "\nCopyID: " , testbooks.getItemId(), "\nStatus: ", testbooks.getStatus(), "\n")
 
-                elif action == "available.bookitems":
+                elif action == "bookitem.available":
                     for testbooks in bookItems:
                         if testbooks.getStatus() == "available":
                             print("\nTitle: ", testbooks.getBookTitle() , "\nCopyID: " , testbooks.getItemId(), "\nStatus: ", testbooks.getStatus(), "\n")
 
-                elif action == "list.books":
+                elif action == "book.list":
                     for realBooks in books:
                         print("\nTitle: ", realBooks.getTitle(), "\nAuthor: ", realBooks.getAuthor(), "\nLanguage: ", realBooks.getLanguage(), "\nPages: ", realBooks.getPages(), "\nYear: ", realBooks.getYear(), "\nCountry: ", realBooks.getCountry(), "\n")
                 
-                elif action == "find.book":
-                    whatBook = input("Choose what book you want to add. Give the specific title.\n")
+                elif action == "book.find":
+                    whatBook = input("Choose what book you want to find. Give the specific title.\n")
                     for b in books:
                         if whatBook == b.getTitle():
                             print("\nTitle: ", b.getTitle(), "\nAuthor: ", b.getAuthor(), "\nCountry: ", b.getCountry(), "\nLanguage: ", b.getLanguage(), "\nYear: ", b.getYear(), "\nPages: ", b.getPages(), "\n")
@@ -185,7 +179,7 @@ while (done == False):
                     for item in loanAdministration:
                         print("\nBookinformation: \n\tTitle:\t", item.getBookItem().getBookTitle(), "\n\tAuthor:\t", item.getBookItem().getBookAuthor(), "\nLend by customer: ", item.getCustomer().getName(), " on ", item.getDateLoaned(), "\nExpected return date: ", item.getDateEnd(), "\nCopy ID:\t", item.getBookItem().getItemId(), "\n")
                 
-                elif action == "make.backup":
+                elif action == "backup.make":
 
                     with open('data/backup/customers.csv', mode = 'w', encoding = 'UTF-8', newline = '') as customerFile:
                         customerWriter = csv.writer(customerFile, delimiter = ',', quotechar='"', quoting = csv.QUOTE_MINIMAL)
@@ -245,9 +239,9 @@ while (done == False):
                         for c in librarians:
                             librarianWriter.writerow([c.id, c.gender, c.nationality, c.firstName, c.lastName, c.streetAddress, c.zipCode, c.city, c.emailAddress, c.username, c.phoneNumber, c.status])            
 
-                    copyfile('data/booksset1.json', 'data/backup/booksset.json')
+                    copyfile('data/booksset.json', 'data/backup/booksset.json')
                 
-                elif action == "recover.backup":
+                elif action == "backup.recover":
                     copyfile('data/backup/bookitems.json', 'data/bookitems.json')
                     copyfile('data/backup/booksset.json', 'data/booksset.json')
                     copyfile('data/backup/customers.csv', 'data/customers.csv')
@@ -299,9 +293,9 @@ while (done == False):
                     action = input("What do you want to do? Type help for more information.\n")
 
                     if action == "help":
-                        print("Find a book = find.book\nLend a book = lend.book\nReturn book = return.book\nLook for available books = available.books\nShow books in your possession = my.books\nLogout from the system = logout\n")
+                        print("\nbook.find = find a specific book with either a title, author or year\nbook.lend = loan an available book\nbook.available = shows a list of available books\nBook.return = return a loan book from your possession\nmy.books = shows books in your possession\nlogout = logout from system\n")
 
-                    elif action == "lend.book":
+                    elif action == "book.lend":
                         searchMethod = input("How do you want to search for a book? Choose:\nTitle, Author or Year\n")
                         if searchMethod == "Title":
                             whatBook = input("Please type the book title.\n")
@@ -312,7 +306,7 @@ while (done == False):
                                     loanAdministration.append(newLoan)
                                     break
 
-                    elif action == "find.book":
+                    elif action == "book.find":
                         searchMethod = input("\nHow do you want to search for a book? Choose:\nTitle, Author or Year\n")
                         if searchMethod == "Title":
                             whatBook = input("\nPlease type the book title.\n")
@@ -332,7 +326,7 @@ while (done == False):
                                 if bi.getBookYear() == whatYear:
                                     print("\nTitle: ", bi.getBookTitle(), "\nAuthor: ", bi.getBookAuthor(), "\nAvailability: ", bi.getStatus(), "\n")
 
-                    elif action == "available.books":
+                    elif action == "book.available":
                         for testbooks in bookItems:
                             if testbooks.getStatus() == "available":
                                 print("\nTitle: ", testbooks.getBookTitle() , "\nCopyID: " , testbooks.getItemId(), "\nStatus: ", testbooks.getStatus(), "\n")
@@ -342,15 +336,14 @@ while (done == False):
                             if booksInLoan.getCustomer().getUsername() == x.getUsername():
                                 print("Bookinformation: \n\tTitle: ", booksInLoan.getBookItem().getBookTitle(), "\n\tAuthor: ", booksInLoan.getBookItem().getBookAuthor(), "\n\tReturn Date: ", booksInLoan.getDateEnd(), "\nCopyID: ", booksInLoan.getBookItem().getItemId(), "\n")
 
-                    elif action == "return.book":
+                    elif action == "book.return":
                         whatBook = input("\nWhich book would you like to return? Type the copy id.\n")
                         for booksInLoan in loanAdministration:
                             if booksInLoan.getCustomer().getUsername() == x.getUsername():
                                 if whatBook == booksInLoan.getBookItem().getItemId():
-                                    print("Bookinformation: \n\tTitle: ", booksInLoan.getBookItem().getBookTitle(), "\n\tAuthor: ", booksInLoan.getBookItem().getBookAuthor(), "\n\tReturn Date: ", booksInLoan.getDateEnd(), "\n")
                                     booksInLoan.getBookItem().setStatus("available")
                                     for loan in loanAdministration:
-                                        if loan.getBookItem().getItemId == booksInLoan.getBookItem().getItemId():
+                                        if loan.getBookItem().getItemId() == booksInLoan.getBookItem().getItemId():
                                             loanAdministration.remove(booksInLoan)
 
                     elif action == "logout":

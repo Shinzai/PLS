@@ -49,8 +49,6 @@ class Person():
     def getStatus(self):
         return self.status
 
-
-
 class librarian(Person):
     def __init__(self, id, gender, nationality, firstName, lastName, streetAddress, zipCode, city, emailAddress, username, phoneNumber, status):
         super().__init__(id, gender, nationality, firstName, lastName, streetAddress, zipCode, city, emailAddress, username, phoneNumber, status)
